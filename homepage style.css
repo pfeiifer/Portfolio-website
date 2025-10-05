@@ -1,0 +1,308 @@
+/* -------------------------------------- */
+/* 0. GLOBAL STYLES (The Dark Theme) */
+/* -------------------------------------- */
+html, body {
+    margin: 0;
+    padding: 0;
+    /* Ensure the body is full height for the background container */
+    height: 100%; 
+}
+
+body {
+    background-color: #1e1e1e; /* Dark background color for the page */
+    color: #ffffff; /* Default white text color */
+    font-family: 'Arial', sans-serif; 
+    line-height: 1.6;
+}
+
+/* -------------------------------------- */
+/* 1. BACKGROUND LAYER (Circuit Board Image and Dimming) */
+/* -------------------------------------- */
+.background-container {
+    /* REMOVED: display: flex; flex-direction: column; overflow: hidden; */
+    /*
+        The flexbox properties are removed from the main container
+        because we are switching to a fixed-position layout for the bars.
+        The content-area will now handle the scrolling.
+    */
+    position: relative; 
+    min-height: 100vh; /* Takes up the full height of the viewport */
+    width: 100%;
+    /* Fallback color if the image fails to load */
+    background-color: #5c5555; 
+}
+
+.background-image {
+    position: fixed; /* Takes it out of the flow */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the whole area */
+    z-index: 1; /* Sits behind all content */
+}
+
+/* Dimming Overlay */
+.background-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 50% opaque black dim */
+    z-index: 2; /* Sits on top of the image */
+}
+
+/* -------------------------------------- */
+/* 2. FOREGROUND CONTENT (Fixed Bars and Scrollable Middle) */
+/* -------------------------------------- */
+
+/* --- FIXING THE BARS (KEY CHANGE) --- */
+.top-bar {
+    /* Fixes the header to the top of the viewport */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 100; /* Ensure it stays on top of everything */
+    
+    /* Original styling */
+    background-color: #1a1a1a; 
+    width: 100%;
+    box-sizing: border-box;
+    /* Define a fixed height to use for padding the content-area */
+    height: 60px; /* Example height: adjust as needed */
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bottom-bar {
+    /* Fixes the footer to the bottom of the viewport */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Ensure it stays on top of everything */
+
+    /* Original styling */
+    background-color: #1a1a1a; 
+    width: 100%;
+    box-sizing: border-box;
+    /* Define a fixed height to use for padding the content-area */
+    height: 60px; /* Example height: adjust as needed */
+
+    /* Align icons in the footer */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0px;
+}
+
+/* Navbar Styling */
+.top-bar nav a { /* Changed from .navbar nav a to match HTML structure */
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 50px;
+    opacity: 0.8;
+}
+
+.top-bar nav a:hover {
+    opacity: 1;
+    color: #ff5722; /* Orange Accent */
+}
+
+/* --- SCROLLABLE CONTENT AREA (KEY CHANGE) --- */
+.content-area {
+    /* REMOVED: flex-grow: 1; overflow-y: auto; */
+    
+    /* Pushes content down past the fixed top-bar */
+    padding-top: 60px; /* Must match .top-bar height */
+    /* Ensures the bottom of the content doesn't get hidden under the bottom-bar */
+    padding-bottom: 100px; /* Must match .bottom-bar height */
+    
+    /* Original styling */
+    padding-left: 20px;
+    padding-right: 20px;
+    
+    /* Optional: Ensure content starts below the background image Z-index */
+    position: relative; 
+    z-index: 3; 
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* -------------------------------------- */
+/* 3. HERO TEXT STYLES */
+/* -------------------------------------- */
+
+.hero-text p {
+    font-size: 36px;
+    margin-bottom: 2px;
+    color: #ffffff;
+    /* Changed to a standard unit, was 300px which is huge */
+    font-weight: 300; 
+    max-width: 100%;
+    align-self: flex-start;
+}
+
+/* CTA Buttons */
+.cta-buttons {
+    margin-top: 30px;
+}
+
+.cta-buttons a {
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-right: 15px;
+    text-decoration: none;
+    background-color: #22bdff;
+    color: #1a1a1a; /* Ensure button text is visible on light background */
+}
+
+.cta-buttons a:hover {
+    color: #ff5722;
+    background-color: #f0f0f0;
+    text-decoration: none;
+}
+
+/* -------------------------------------- */
+/* 4. HERO IMAGE AND DECORATIVE SHAPES */
+/* -------------------------------------- */
+.hero-image {
+    width: 35%;
+    place-items: center;
+    /* Adding z-index to ensure it sits above the background overlay (z-index: 2) */
+    z-index: 3; 
+    display: grid;
+
+}
+
+.profile-pic, .video-background-circle {
+    grid-area: 1/1; /* perfect overlapping(both image and video children occupy the 1st and only grid cell */
+}
+
+.profile-pic {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 50%;
+    z-index: 10; /* Ensures it's above decorative shapes */
+    box-shadow: 0 0 20px #22bdff;/* Add a subtle shadow to make it pop */
+}
+/* ------------------------------------ */
+/* 5. Video Container (The circular Aperture) */
+/* ------------------------------------ */
+.video-background-circle {
+    /* Dimensions and shape matching the profile picture */
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden; /* Crucial: clips the video content to the circle */
+    /* Positioning to match the original profile-pic's location(e.g., top: 38%) */
+    z-index: 9;/* sits beneath the profile picture(z-index: 10) */
+}
+
+/* -------------------------------------- */
+/* 6. SKILLS LIST (Footer Icons) */
+/* -------------------------------------- */
+
+.icon {
+    width: 40px; 
+    height: 40px;
+    /* Ensure the icon color is white by default in the dark theme */
+    fill: #ffffff; 
+}
+
+.icon:hover {
+    fill: #22bdff; /* Change the SVG fill color on hover */
+    cursor: pointer;
+}
+
+/* --------------------------------------- */
+/* 7. Video sizing */
+/* --------------------------------------- */
+.circuit-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* -------------------------------------- */
+/* 8. MEDIA QUERIES */
+/* -------------------------------------- */
+
+@media (max-width: 768px) {
+    /* --- Content Area Layout Change --- */
+    .content-area {
+        /* Stack the text and image vertically */
+        flex-direction: column;
+        align-items: center; 
+        gap: 40px; 
+        padding-top: 60px; /* Account for fixed top-bar */
+        padding-bottom: 60px; /* Account for fixed bottom-bar */
+    }
+
+    /* --- Hero Text Adjustments --- */
+    .hero-text {
+        text-align: center; 
+        /* Adjust alignment if you added a margin-top for desktop tuning */
+        margin-top: 0; 
+        order: 2; /* set it to appear second */
+    }
+
+    .hero-text p {
+        font-size: 28px; /* Reduced font size */
+    }
+
+    /* --- CTA Buttons (Fixing Overlap) --- */
+    .cta-buttons {
+        margin-top: 30px;
+        /* Stack the buttons vertically */
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        gap: 15px; 
+    }
+
+    .cta-buttons a {
+        /* Make buttons take up most of the width */
+        width: 80%; 
+        max-width: 250px; 
+        text-align: center;
+        /* Remove desktop horizontal margin */
+        margin-right: 0; 
+    }
+    
+    /* --- Hero Image Adjustments --- */
+    .hero-image {
+        /* Reset positioning and size for mobile */
+        width: 100%;
+        height: auto;
+        order: 1; /* set it to appear first */
+    }
+    
+    /* Reduce the size of the image/video circle */
+    .profile-pic, .video-background-circle {
+        width: 200px; 
+        height: 200px; 
+        position: static; 
+    }
+
+    /* --- Footer (Bottom Bar) Adjustments --- */
+    .bottom-bar {
+        height: 50px; /* Slightly smaller bar */
+    }
+    
+    .icon {
+        width: 30px; /* Smaller icons */
+        height: 30px;
+    }
+}

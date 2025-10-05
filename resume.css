@@ -1,0 +1,32 @@
+#circuitCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: #000; /* Dark background */
+}
+.content {
+    position: relative;
+    z-index: 1;
+    color: white; /* Ensure text is readable */
+}
+
+#dynamic-text-display {
+    padding-top: 80px;
+    font-family: 'Courier New', monospace; /* Classic look */
+    color: #00FFFF; /* Bright teal/cyan for tech feel */
+    white-space: pre-line; /* Allows the text to wrap while maintaining spaces */
+    min-height: 1.5em; /* Prevents layout jump when text is empty */
+    border-right: 0.15em solid #00FFFF; /* The 'cursor' */
+    animation: 
+        blink-cursor 0.75s step-end infinite; /* Cursor animation */
+    /* Optional: for larger text */
+    font-size: 24px;
+}
+
+@keyframes blink-cursor {
+    from, to { border-right-color: transparent }
+    50% { border-right-color: #00FFFF; }
+}

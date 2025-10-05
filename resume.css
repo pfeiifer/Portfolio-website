@@ -13,6 +13,20 @@
     color: white; /* Ensure text is readable */
 }
 
+/* Add/Refine this rule in your resume.css */
+.main-content-wrapper {
+    /* Ensures the wrapper sits on top of the fixed canvas */
+    position: relative; 
+    z-index: 5; 
+    
+    /* Ensure it starts at the top and can grow */
+    width: 100%;
+    min-height: 100vh; 
+    
+    /* Prevents horizontal overflow caused by dynamic content */
+    overflow-x: hidden; 
+}
+
 #dynamic-text-display {
     padding-top: 80px;
     font-family: 'Courier New', monospace; /* Classic look */

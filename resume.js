@@ -176,12 +176,14 @@ function displayNextPhrase() {
         // Append the next character to the text content
         DISPLAY_ELEMENT.textContent += currentPhrase[charIndex];
         charIndex++;
+        
+        scrollToBottom();
 
         // Stop the interval when the phrase is complete
         if (charIndex === currentPhrase.length) {
             clearInterval(typingInterval);
 
-            scrollToBottomIfNearEnd();
+            //scrollToBottomIfNearEnd();
             // 3. Move to the next phrase after a short delay
             phraseIndex++;
             setTimeout(displayNextPhrase, DELAY_BETWEEN_PHRASES_MS);
@@ -195,6 +197,8 @@ window.onload = startPhraseSequence;
 /**
  * Scrolls the page to the bottom ONLY if the user is already near the bottom.
  */
+
+/*
 function scrollToBottomIfNearEnd() {
     // We use document.documentElement (or document.body) for the main page scroll
     const scrollElement = document.documentElement; 
@@ -215,4 +219,18 @@ function scrollToBottomIfNearEnd() {
         });
     }
     // If the user has scrolled up to review content, do nothing (i.e., don't force a scroll).
+}
+*/
+/**
+ * Scrolls the page to the absolute bottom.
+ */
+function scrollToBottom() {
+    const scrollElement = document.documentElement; 
+    
+    // Scroll to the absolute bottom of the entire page's content.
+    window.scrollTo({
+        // Scroll to the absolute bottom (scrollHeight)
+        top: scrollElement.scrollHeight, 
+        behavior: 'smooth' 
+    });
 }

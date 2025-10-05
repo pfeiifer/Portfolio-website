@@ -5,7 +5,8 @@ html, body {
     margin: 0;
     padding: 0;
     /* Ensure the body is full height for the background container */
-    height: 100%; 
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 body {
@@ -13,11 +14,13 @@ body {
     color: #ffffff; /* Default white text color */
     font-family: 'Arial', sans-serif; 
     line-height: 1.6;
+    padding-bottom: 50px;
 }
 
 /* -------------------------------------- */
 /* 1. BACKGROUND LAYER (Circuit Board Image and Dimming) */
 /* -------------------------------------- */
+
 .background-container {
     /* REMOVED: display: flex; flex-direction: column; overflow: hidden; */
     /*
@@ -26,10 +29,10 @@ body {
         The content-area will now handle the scrolling.
     */
     position: relative; 
-    min-height: 100vh; /* Takes up the full height of the viewport */
     width: 100%;
     /* Fallback color if the image fails to load */
-    background-color: #5c5555; 
+    background-color: #5c5555;
+    min-height: 100vh;
 }
 
 .background-image {
@@ -40,12 +43,17 @@ body {
     height: 100%;
     object-fit: cover; /* Ensures image covers the whole area */
     z-index: 1; /* Sits behind all content */
+
+    /* CRITICAL FIX FOR MOBILE JITTER/STUTTER: */
+    transform: translateZ(0); /* Forces hardware acceleration */
+    -webkit-transform: translateZ(0); /* For older iOS devices */
 }
 
 /* Dimming Overlay */
+
 .background-container::after {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -119,7 +127,7 @@ body {
     /* Pushes content down past the fixed top-bar */
     padding-top: 60px; /* Must match .top-bar height */
     /* Ensures the bottom of the content doesn't get hidden under the bottom-bar */
-    padding-bottom: 100px; /* Must match .bottom-bar height */
+     /* Must match .bottom-bar height */
     
     /* Original styling */
     padding-left: 20px;

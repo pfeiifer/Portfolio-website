@@ -114,7 +114,7 @@ const PHRASES = [
     "Coding journey:\nI was introduced to the field of technology by a friend.",
     "Upon realizing that sophisticated, secure and amazing systems are powered by code, I developed a strong interest in programming.\n",
     "Driving force:\nNow I have a desire to learn how to build my own.",
-    "The strive to be competent and proficient in writing robust and scalable programs is what fuels me that I may not settle for megre attainments.\n",
+    "The strive to be competent and proficient in writing robust and scalable programs is what fuels me that I may not settle for meagre attainments.\n",
     "Tools and technologies:\nI'm conversant with languages like C, Python, C++, Java.",
     "I'm also familiar with Git, Github, Linux and Powershell."
 ];

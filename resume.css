@@ -28,6 +28,8 @@
 }
 
 #dynamic-text-display {
+    margin-top: 80px;
+    margin-left: 10px;
     padding-top: 80px;
     font-family: 'Courier New', monospace; /* Classic look */
     color: #00FFFF; /* Bright teal/cyan for tech feel */
